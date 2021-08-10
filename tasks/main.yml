@@ -1,6 +1,5 @@
 ---
-- include_vars:
-    name: homelab.yml
+- include_vars: homelab.yml
 
 # Variable configuration.
 - include_tasks: variables.yml
