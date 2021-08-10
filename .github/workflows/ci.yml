@@ -2,9 +2,8 @@
 name: CI
 'on':
   pull_request:
+  workflow_dispatch:
   push:
-    branches:
-      - master
   schedule:
     - cron: "0 3 * * 5"
 
@@ -42,7 +41,7 @@ jobs:
       matrix:
         distro:
           - centos8
-          - centos7
+          #- centos7
           - fedora32
           - ubuntu2004
           - ubuntu1804

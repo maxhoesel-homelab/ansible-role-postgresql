@@ -1,6 +1,6 @@
 # Ansible Role: PostgreSQL
 
-**NOTE**: This role is a fork intended for my homelab. I do not reccomend using it over the original role.
+NOTE: This role is a fork intended for my homelab. I do not reccomend using it over the original role.
 
 [![CI](https://github.com/geerlingguy/ansible-role-postgresql/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-postgresql/actions?query=workflow%3ACI)
 
