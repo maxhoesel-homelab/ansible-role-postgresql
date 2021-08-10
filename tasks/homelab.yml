@@ -1,17 +1,18 @@
----
-- name: Ensure PostgreSQL users are present.
-  postgresql_user:
-    name: "{{ item.name }}"
-    password: "{{ item.password | default(omit) }}"
+- name: Ensure Homelab users have required roles
+  postgresql_membership:
     login_host: "{{ item.login_host | default('localhost') }}"
     login_password: "{{ item.login_password | default(omit) }}"
     login_user: "{{ item.login_user | default(postgresql_user) }}"
     login_unix_socket: "{{ item.login_unix_socket | default(postgresql_unix_socket_directories[0]) }}"
     port: "{{ item.port | default(omit) }}"
-  with_items: "{{ postgresql_users + postgresql_homelab_users }}"
+    state: "{{ item.state | default('present') }}"
+    group: "{{ item.role }}"
+    user: "{{ item.name }}"
+  with_items: "{{ postgresql_homelab_users }}"
   no_log: "{{ postgres_users_no_log }}"
   become: true
   become_user: "{{ postgresql_user }}"
+  when: item.role is defined
   # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
   vars:
     ansible_ssh_pipelining: true

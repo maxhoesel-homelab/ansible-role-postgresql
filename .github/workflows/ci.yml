@@ -2,9 +2,8 @@
 name: CI
 'on':
   pull_request:
+  workflow_dispatch:
   push:
-    branches:
-      - master
   schedule:
     - cron: "0 3 * * 5"
 
@@ -43,13 +42,11 @@ jobs:
       matrix:
         distro:
           - rockylinux8
-          - centos7
           - fedora36
           - ubuntu2004
           - ubuntu1804
           - debian10
           - debian11
-          # - amazonlinux2
 
     steps:
       - name: Check out the codebase.

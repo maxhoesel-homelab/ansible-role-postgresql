@@ -1,0 +1,10 @@
+postgresql_homelab_users:
+  - name: "{{ lookup('hashi_vault', 'secret/data/homelab/monitoring:postgres')['user'] }}"
+    password: "{{ lookup('hashi_vault', 'secret/data/homelab/monitoring:postgres')['password'] }}"
+    role: pg_monitor
+    # Root superuer for easy login from the root unix account
+  - name: root
+    role_attr_flags: SUPERUSER,CREATEROLE,CREATEDB,REPLICATION,BYPASSRLS
+
+postgresql_homelab_hba:
+  - {type: host, database: all, user: zbx_monitor, address: 'localhost', auth_method: "{{ postgresql_auth_method }}"}
