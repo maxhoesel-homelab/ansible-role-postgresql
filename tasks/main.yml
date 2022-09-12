@@ -1,5 +1,14 @@
 ---
-- include_vars: homelab.yml
+- name: Include homelab-specific variables
+  include_vars: "homelab.yml"
+- name: Update homelab-specific variables # noqa ignore-errors
+  set_fact:
+    postgresql_users: "{{ postgresql_users + postgresql_homelab_users }}"
+    postgresql_hba_entries: "{{ postgresql_hba_entries + postgresql_homelab_hba }}"
+  # continue on if our users can't be added for sone reason (for example, if vault is unreachable)
+  retries: 3
+  delay: 5
+  ignore_errors: true
 
 # Variable configuration.
 - include_tasks: variables.yml

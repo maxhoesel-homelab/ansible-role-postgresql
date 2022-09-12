@@ -1,3 +1,4 @@
+---
 - name: Ensure Homelab users have required roles
   postgresql_membership:
     login_host: "{{ item.login_host | default('localhost') }}"
@@ -18,3 +19,7 @@
     ansible_ssh_pipelining: true
   environment:
     PGOPTIONS: "{{ (postgresql_auth_method == 'scram-sha-256') | ternary('-c password_encryption=scram-sha-256', '') }}"
+  # don't
+  retries: 3
+  delay: 5
+  ignore_errors: true
